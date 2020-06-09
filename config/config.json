@@ -1,0 +1,19 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "alert-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/alert/AlertWebPart.js",
+          "manifest": "./src/webparts/alert/AlertWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "AlertWebPartStrings": "lib/webparts/alert/loc/{locale}.js",
+    "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js"
+  }
+}

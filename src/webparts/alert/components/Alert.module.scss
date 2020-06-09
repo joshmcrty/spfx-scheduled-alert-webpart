@@ -1,0 +1,66 @@
+@import "~office-ui-fabric-react/dist/sass/References.scss";
+@import "~office-ui-fabric-react/dist/sass/themeOverrides.scss";
+
+.alert {
+  .alertItem {
+    background-color: transparent;
+    color: $ms-color-neutralPrimary;
+    display: flex;
+    align-items: flex-start;
+    justify-content: start;
+    @include ms-fontSize-m;
+    outline: rgba(black, 0.1) solid 1px;
+    outline-offset: -1px;
+    padding: 10px;
+
+    + .alertItem {
+      margin-top: 1em;
+    }
+
+    &.info,
+    &.blue {
+      background-color: $ms-color-infoBackground;
+
+      .icon {
+        color: $ms-color-info;
+      }
+    }
+    &.yellow,
+    &.warning {
+      background-color: $ms-color-warningBackground;
+
+      .icon {
+        color: $ms-color-warning;
+      }
+    }
+    &.red,
+    &.error {
+      background-color: $ms-color-errorBackground;
+
+      .icon {
+        color: $ms-color-error;
+      }
+    }
+    &.green,
+    &.success {
+      background-color: $ms-color-successBackground;
+
+      .icon {
+        color: $ms-color-success;
+      }
+    }
+  }
+
+  .icon {
+    @include ms-fontSize-l;
+  }
+
+  .content {
+    flex-grow: 1;
+    margin-left: 10px;
+  }
+
+  .editButton {
+    height: auto;
+  }
+}
