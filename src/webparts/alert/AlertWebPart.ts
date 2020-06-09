@@ -2,11 +2,6 @@ import * as React from "react";
 import * as ReactDom from "react-dom";
 import * as strings from "AlertWebPartStrings";
 
-import {
-  DateConvention,
-  IDateTimeFieldValue,
-  PropertyFieldDateTimePicker,
-} from "@pnp/spfx-property-controls/lib/PropertyFieldDateTimePicker";
 import { Guid, Version } from "@microsoft/sp-core-library";
 import {
   IPropertyPaneConfiguration,

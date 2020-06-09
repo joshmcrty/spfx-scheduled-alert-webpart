@@ -13,7 +13,6 @@
   },
   "externals": {},
   "localizedResources": {
-    "AlertWebPartStrings": "lib/webparts/alert/loc/{locale}.js",
-    "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js"
+    "AlertWebPartStrings": "lib/webparts/alert/loc/{locale}.js"
   }
 }
