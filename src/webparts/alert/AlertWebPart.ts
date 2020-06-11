@@ -39,15 +39,39 @@ export default class AlertWebPart extends BaseClientSideWebPart<
   // Index of current item being edited.
   private _activeIndex: number = -1;
 
-  // Function to update array of items
+  /**
+   * Deletes an alert item from the array of items in the web part property bag.
+   * @param index The index of the alert item to delete
+   */
+  private _deleteItem(index: number): void {
+    const newItems = this.properties.items.filter((item, itemIndex) => {
+      return index !== itemIndex;
+    });
+
+    this.properties.items = newItems || [];
+    this.render();
+
+    // Close the property pane if it was showing the current item
+    if (this._activeIndex === index) {
+      this._activeIndex = null;
+      this.context.propertyPane.close();
+    } else {
+      this.context.propertyPane.refresh();
+    }
+  }
+
+  /**
+   * Opens the web part property pane to edit the alert item.
+   * @param index The index of the alert item to edit; use `-1` to create a new alert item
+   */
   private _editItem(index: number): void {
-    // Add a new linkItem
+    // Add a new alert item
     if (index === -1) {
       let newItems = this.properties.items.slice();
       let guid = Guid.newGuid();
       newItems.unshift({
         id: guid.toString(),
-        icon: "warning",
+        icon: "Warning",
         customIcon: null,
         alert: "Enter a title",
         description: "Enter a message",
@@ -111,6 +135,7 @@ export default class AlertWebPart extends BaseClientSideWebPart<
       {
         items: this._itemsWithShowUpdated,
         editItem: this._editItem.bind(this),
+        deleteItem: this._deleteItem.bind(this),
         displayMode: this.displayMode,
         domElement: this.domElement,
       }
@@ -139,6 +164,7 @@ export default class AlertWebPart extends BaseClientSideWebPart<
     if (this.context.propertyPane.isRenderedByWebPart()) {
       return this.getItemPropertyPaneConfiguration();
     } else {
+      this._activeIndex = null;
       return this.getWebPartPropertyPaneConfiguration();
     }
   }
