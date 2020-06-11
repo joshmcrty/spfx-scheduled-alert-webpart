@@ -5,4 +5,5 @@ export interface IAlertProps {
   items: IAlertItemProps[];
   editItem: (index: number) => void;
   displayMode: DisplayMode;
+  domElement: HTMLElement;
 }

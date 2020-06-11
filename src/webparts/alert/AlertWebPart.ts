@@ -112,6 +112,7 @@ export default class AlertWebPart extends BaseClientSideWebPart<
         items: this._itemsWithShowUpdated,
         editItem: this._editItem.bind(this),
         displayMode: this.displayMode,
+        domElement: this.domElement,
       }
     );
 

@@ -10,6 +10,27 @@ import { IAlertProps } from "./IAlertProps";
 import { Link } from "office-ui-fabric-react/lib/Link";
 import styles from "./Alert.module.scss";
 
+// Polyfill closest method. See https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
+if (!Element.prototype.matches) {
+  // @ts-ignore
+  Element.prototype.matches =
+    // @ts-ignore
+    Element.prototype.msMatchesSelector ||
+    Element.prototype.webkitMatchesSelector;
+}
+
+if (!Element.prototype.closest) {
+  Element.prototype.closest = function (s: any) {
+    var el = this;
+
+    do {
+      if (Element.prototype.matches.call(el, s)) return el;
+      el = el.parentElement || el.parentNode;
+    } while (el !== null && el.nodeType === 1);
+    return null;
+  };
+}
+
 export default class Alert extends React.Component<IAlertProps, {}> {
   // Calls the editItem function with -1 to add a new item
   private _addBox() {
@@ -20,7 +41,19 @@ export default class Alert extends React.Component<IAlertProps, {}> {
     return this.props.items.filter((item) => item.showItem);
   }
 
-  private _removeWebPartMargins() {}
+  /**
+   * Walks up the DOM tree from the web part domElement and hides the `div.ControlZone` web part wrapper that adds padding and margins while in Display mode (otherwise this web part would still take up space on the page even though it is not showing any content).
+   * This DOM manipulation is not supported or condoned by Microsoft, but it's the only option available for now. See https://sharepoint.uservoice.com/forums/329220-sharepoint-dev-platform/suggestions/33313174-make-it-possible-to-completely-hide-an-spfx-web-pa
+   */
+  private _removeWebPartMargins(): void {
+    const webPartWrapper = this.props.domElement.closest(".ControlZone");
+
+    if (this.props.displayMode === DisplayMode.Edit) {
+      (webPartWrapper as HTMLElement).style.display = "initial";
+    } else {
+      (webPartWrapper as HTMLElement).style.display = "none";
+    }
+  }
 
   public componentDidUpdate(): void {
     if (this._itemsToShow.length === 0) {
