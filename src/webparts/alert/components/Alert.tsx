@@ -49,7 +49,7 @@ export default class Alert extends React.Component<IAlertProps, {}> {
     const webPartWrapper = this.props.domElement.closest(".ControlZone");
 
     if (this.props.displayMode === DisplayMode.Edit) {
-      (webPartWrapper as HTMLElement).style.display = "initial";
+      (webPartWrapper as HTMLElement).style.display = "block";
     } else {
       (webPartWrapper as HTMLElement).style.display = "none";
     }
