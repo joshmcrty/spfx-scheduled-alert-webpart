@@ -1,5 +1,8 @@
 define([], function () {
   return {
+    WebPartDescription:
+      "There are no general properties to edit for this web part. Each alert has an edit icon to change its individual properties, including scheduling. Use the New alert button to add additional alerts.",
+    ItemHeaderDescription: "Edit the properties for alert",
     DesignGroupName: "Design",
     IconFieldLabel: "Icon",
     CustomIconFieldLabel: "Custom icon name",
@@ -19,5 +22,7 @@ define([], function () {
     Blue: "Info",
     Green: "Success",
     NewItemButton: "New alert",
+    Edit: "Edit",
+    Delete: "Delete",
   };
 });

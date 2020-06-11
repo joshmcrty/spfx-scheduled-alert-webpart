@@ -181,8 +181,7 @@ export default class AlertWebPart extends BaseClientSideWebPart<
       pages: [
         {
           header: {
-            description:
-              "There are no global properties to edit for this web part. Each alert has an edit icon to change its individual properties.",
+            description: strings.WebPartDescription,
           },
           groups: [
             {
@@ -199,7 +198,7 @@ export default class AlertWebPart extends BaseClientSideWebPart<
       pages: [
         {
           header: {
-            description: `Edit the properties for alert ${
+            description: `${strings.ItemHeaderDescription} ${
               this._activeIndex + 1
             }.`,
           },

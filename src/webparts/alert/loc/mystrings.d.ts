@@ -1,4 +1,6 @@
 declare interface IAlertWebPartStrings {
+  WebPartDescription: string;
+  ItemHeaderDescription: string;
   DesignGroupName: string;
   AlertGroupName: string;
   LinkGroupName: string;
@@ -16,6 +18,8 @@ declare interface IAlertWebPartStrings {
   Blue: string;
   Green: string;
   NewItemButton: string;
+  Edit: string;
+  Delete: string;
 }
 
 declare module "AlertWebPartStrings" {
