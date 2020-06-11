@@ -78,13 +78,15 @@ export default class Alert extends React.Component<IAlertProps, {}> {
                     <Link href={item.linkUrl}>{item.linkText}</Link>
                   )}
                 </div>
-                <ActionButton
-                  iconProps={{ iconName: "Edit" }}
-                  onClick={this.props.editItem.bind(this, index)}
-                  ariaLabel="Edit"
-                  title="Edit"
-                  className={styles.editButton}
-                />
+                {this.props.displayMode === DisplayMode.Edit && (
+                  <ActionButton
+                    iconProps={{ iconName: "Edit" }}
+                    onClick={this.props.editItem.bind(this, index)}
+                    ariaLabel="Edit"
+                    title="Edit"
+                    className={styles.editButton}
+                  />
+                )}
               </div>
             );
           })}
