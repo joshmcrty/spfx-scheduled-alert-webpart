@@ -96,7 +96,9 @@ export default class AlertWebPart extends BaseClientSideWebPart<
     this.context.propertyPane.open();
   }
 
-  // Returns a copy of the property bag `items` with the `showItem` property updated based on the `startDate` and `endDate` properties.
+  /**
+   * Returns a copy of the property bag `items` with the `showItem` property updated based on the `startDate` and `endDate` item properties.
+   */
   private get _itemsWithShowUpdated(): IAlertItemProps[] {
     if (!this.properties.items) {
       return [];
@@ -152,6 +154,11 @@ export default class AlertWebPart extends BaseClientSideWebPart<
     return Version.parse("1.0");
   }
 
+  /**
+   * Called when the `startDate` or `endDate` properties of an `item` are changed. This re-renders the web part after the properties are updated.
+   * @param propertyPath The web part property path to be updated
+   * @param newValue The new value to update with
+   */
   private _onScheduleDateChanged(propertyPath: string, newValue: Date) {
     const oldValue: any = get(this.properties, propertyPath);
     update(this.properties, propertyPath, (): any => {
