@@ -7,6 +7,7 @@ import {
   IPropertyPaneConfiguration,
   PropertyPaneChoiceGroup,
   PropertyPaneTextField,
+  PropertyPaneToggle,
 } from "@microsoft/sp-property-pane";
 import { get, update } from "@microsoft/sp-lodash-subset";
 
@@ -28,6 +29,7 @@ export interface IAlertItemProps {
   linkText: string;
   linkUrl: string;
   style: string;
+  scheduled: boolean;
   startDate: number;
   endDate: number;
   showItem: boolean;
@@ -78,6 +80,7 @@ export default class AlertWebPart extends BaseClientSideWebPart<
         linkText: null,
         linkUrl: null,
         style: "warning",
+        scheduled: false,
         startDate: new Date().getTime(),
         endDate: new Date().getTime(),
         showItem: null,
@@ -113,7 +116,8 @@ export default class AlertWebPart extends BaseClientSideWebPart<
       item.endDate = newEndDate.getTime();
 
       // Compare start/end dates and show item if it falls within the date range
-      item.showItem = item.startDate <= now && now <= item.endDate;
+      item.showItem =
+        !item.scheduled || (item.startDate <= now && now <= item.endDate);
       return item;
     });
   }
@@ -297,12 +301,16 @@ export default class AlertWebPart extends BaseClientSideWebPart<
             {
               groupName: strings.ScheduleGroupName,
               groupFields: [
+                PropertyPaneToggle(`items[${this._activeIndex}].scheduled`, {
+                  label: strings.ScheduledFieldLabel,
+                }),
                 new PropertyPaneDatePicker(
                   `items[${this._activeIndex}].startDate`,
                   {
                     label: strings.StartDateFieldLabel,
                     onPropertyChange: this._onScheduleDateChanged.bind(this),
-                    disabled: false,
+                    disabled: !this.properties.items[this._activeIndex]
+                      .scheduled,
                     value: new Date(
                       this.properties.items[this._activeIndex].startDate
                     ),
