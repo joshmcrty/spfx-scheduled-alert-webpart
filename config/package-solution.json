@@ -1,9 +1,9 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
-    "name": "spfx-scheduled-alert-webpart-client-side-solution",
+    "name": "Scheduled Alert Web Part",
     "id": "13518dde-6597-4ece-98d3-11e59e87a820",
-    "version": "1.1.0.0",
+    "version": "1.2.0.0",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false
