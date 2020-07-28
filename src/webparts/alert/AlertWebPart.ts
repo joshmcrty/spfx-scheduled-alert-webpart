@@ -234,23 +234,23 @@ export default class AlertWebPart extends BaseClientSideWebPart<
                   options: [
                     {
                       key: "Warning",
-                      text: "Warning",
+                      text: strings.Warning,
                     },
                     {
                       key: "Error",
-                      text: "Error",
+                      text: strings.Error,
                     },
                     {
                       key: "Info",
-                      text: "Info",
+                      text: strings.Info,
                     },
                     {
                       key: "Completed",
-                      text: "Completed",
+                      text: strings.Completed,
                     },
                     {
                       key: "Other",
-                      text: "Other (enter icon name)",
+                      text: strings.Other,
                     },
                   ],
                 }),
@@ -295,12 +295,12 @@ export default class AlertWebPart extends BaseClientSideWebPart<
               ],
             },
             {
-              groupName: "Schedule",
+              groupName: strings.ScheduleGroupName,
               groupFields: [
                 new PropertyPaneDatePicker(
                   `items[${this._activeIndex}].startDate`,
                   {
-                    label: "Start date",
+                    label: strings.StartDateFieldLabel,
                     onPropertyChange: this._onScheduleDateChanged.bind(this),
                     disabled: false,
                     value: new Date(
@@ -311,9 +311,10 @@ export default class AlertWebPart extends BaseClientSideWebPart<
                 new PropertyPaneDatePicker(
                   `items[${this._activeIndex}].endDate`,
                   {
-                    label: "End date",
+                    label: strings.EndDateFieldLabel,
                     onPropertyChange: this._onScheduleDateChanged.bind(this),
-                    disabled: false,
+                    disabled: !this.properties.items[this._activeIndex]
+                      .scheduled,
                     value: new Date(
                       this.properties.items[this._activeIndex].endDate
                     ),
