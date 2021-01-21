@@ -26,6 +26,7 @@
       },
       "officeFabricIconFontName": "Warning",
       "properties": {
+        "domSelector": ".ControlZone",
         "items": [
           {
             "alert": "Alert Title",

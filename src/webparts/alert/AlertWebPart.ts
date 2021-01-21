@@ -18,6 +18,7 @@ import { PropertyPaneDatePicker } from "../../controls/PropertyPaneDatePicker/Pr
 
 export interface IAlertWebPartProps {
   items: IAlertItemProps[];
+  domSelector: string;
 }
 
 export interface IAlertItemProps {
@@ -35,9 +36,7 @@ export interface IAlertItemProps {
   showItem: boolean;
 }
 
-export default class AlertWebPart extends BaseClientSideWebPart<
-  IAlertWebPartProps
-> {
+export default class AlertWebPart extends BaseClientSideWebPart<IAlertWebPartProps> {
   // Index of current item being edited.
   private _activeIndex: number = -1;
 
@@ -144,6 +143,7 @@ export default class AlertWebPart extends BaseClientSideWebPart<
         deleteItem: this._deleteItem.bind(this),
         displayMode: this.displayMode,
         domElement: this.domElement,
+        domSelector: this.properties.domSelector,
       }
     );
 
@@ -180,6 +180,14 @@ export default class AlertWebPart extends BaseClientSideWebPart<
     }
   }
 
+  private _requiredValidation(value: string): string {
+    if (value) {
+      return "";
+    } else {
+      return strings.RequiredFieldValidationMessage;
+    }
+  }
+
   private getWebPartPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
       pages: [
@@ -189,7 +197,13 @@ export default class AlertWebPart extends BaseClientSideWebPart<
           },
           groups: [
             {
-              groupFields: [],
+              groupFields: [
+                PropertyPaneTextField("domSelector", {
+                  label: strings.DomSelectorFieldLabel,
+                  description: strings.DomSelectorFieldDescription,
+                  onGetErrorMessage: this._requiredValidation.bind(this),
+                }),
+              ],
             },
           ],
         },

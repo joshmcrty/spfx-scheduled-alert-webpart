@@ -1,7 +1,9 @@
 define([], function () {
   return {
     WebPartDescription:
-      "There are no general properties to edit for this web part. Each alert has an edit icon to change its individual properties, including scheduling. Use the New alert button to add additional alerts.",
+      "Edit the overall web part properties here. Each alert has an edit icon to change its individual properties, including scheduling. Use the New alert button to add additional alerts.",
+    DomSelectorFieldLabel: "Web part parent element DOM selector",
+    DomSelectorFieldDescription: "Enter a valid DOMString selector (e.g. .ControlZone) to remove margins and padding from the container element of the entire web part. This ensures no whitespace is left on the page if there are no visible alerts.",
     ItemHeaderDescription: "Edit the properties for alert",
     DesignGroupName: "Design",
     IconFieldLabel: "Icon",
@@ -33,5 +35,7 @@ define([], function () {
     NewItemButton: "New alert",
     Edit: "Edit",
     Delete: "Delete",
+    RequiredFieldValidationMessage: "This field is required.",
+    SelectorErrorMessage: "No web part parent element was selected. Please verify that a valid selector was used."
   };
 });

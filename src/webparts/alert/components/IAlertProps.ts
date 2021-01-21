@@ -7,4 +7,5 @@ export interface IAlertProps {
   deleteItem: (index: number) => void;
   displayMode: DisplayMode;
   domElement: HTMLElement;
+  domSelector: string;
 }

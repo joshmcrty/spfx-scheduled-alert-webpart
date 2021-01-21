@@ -1,5 +1,7 @@
 declare interface IAlertWebPartStrings {
   WebPartDescription: string;
+  DomSelectorFieldLabel: string;
+  DomSelectorFieldDescription: string;
   ItemHeaderDescription: string;
   DesignGroupName: string;
   AlertGroupName: string;
@@ -29,6 +31,8 @@ declare interface IAlertWebPartStrings {
   NewItemButton: string;
   Edit: string;
   Delete: string;
+  SelectorErrorMessage: string;
+  RequiredFieldValidationMessage: string;
 }
 
 declare module "AlertWebPartStrings" {

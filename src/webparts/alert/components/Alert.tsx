@@ -46,7 +46,12 @@ export default class Alert extends React.Component<IAlertProps, {}> {
    * This DOM manipulation is not supported or condoned by Microsoft, but it's the only option available for now. See https://sharepoint.uservoice.com/forums/329220-sharepoint-dev-platform/suggestions/33313174-make-it-possible-to-completely-hide-an-spfx-web-pa
    */
   private _removeWebPartMargins(): void {
-    const webPartWrapper = this.props.domElement.closest(".ControlZone");
+    const webPartWrapper = this.props.domElement.closest(this.props.domSelector ? this.props.domSelector : ".ControlZone");
+
+    if (!webPartWrapper) {
+      console.error(new Error(strings.SelectorErrorMessage));
+      return;
+    }
 
     if (this.props.displayMode === DisplayMode.Edit) {
       (webPartWrapper as HTMLElement).style.display = "block";
