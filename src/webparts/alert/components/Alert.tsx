@@ -1,13 +1,13 @@
 import * as React from "react";
 import * as strings from "AlertWebPartStrings";
 
-import { IIconProps, Icon } from "office-ui-fabric-react/lib/Icon";
+import { IIconProps, Icon } from "@fluentui/react";
 
-import { ActionButton } from "office-ui-fabric-react/lib/Button";
+import { ActionButton } from "@fluentui/react";
 import { DisplayMode } from "@microsoft/sp-core-library";
 import { IAlertItemProps } from "../AlertWebPart";
 import { IAlertProps } from "./IAlertProps";
-import { Link } from "office-ui-fabric-react/lib/Link";
+import { Link } from "@fluentui/react";
 import styles from "./Alert.module.scss";
 
 // Polyfill closest method. See https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
@@ -46,7 +46,9 @@ export default class Alert extends React.Component<IAlertProps, {}> {
    * This DOM manipulation is not supported or condoned by Microsoft, but it's the only option available for now. See https://sharepoint.uservoice.com/forums/329220-sharepoint-dev-platform/suggestions/33313174-make-it-possible-to-completely-hide-an-spfx-web-pa
    */
   private _removeWebPartMargins(): void {
-    const webPartWrapper = this.props.domElement.closest(this.props.domSelector ? this.props.domSelector : ".ControlZone");
+    const webPartWrapper = this.props.domElement.closest(
+      this.props.domSelector ? this.props.domSelector : ".ControlZone"
+    );
 
     if (!webPartWrapper) {
       console.error(new Error(strings.SelectorErrorMessage));
