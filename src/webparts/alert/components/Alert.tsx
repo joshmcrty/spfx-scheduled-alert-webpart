@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as strings from "AlertWebPartStrings";
 
-import { IIconProps, Icon } from "@fluentui/react";
+import { IIconProps, Icon, ThemeProvider } from "@fluentui/react";
 
 import { ActionButton } from "@fluentui/react";
 import { DisplayMode } from "@microsoft/sp-core-library";
@@ -79,12 +79,14 @@ export default class Alert extends React.Component<IAlertProps, {}> {
       <div className={styles.alert}>
         {this.props.displayMode === DisplayMode.Edit && (
           <div>
-            <ActionButton
-              iconProps={{ iconName: "Add" }}
-              onClick={this._addBox.bind(this)}
-            >
-              {strings.NewItemButton}
-            </ActionButton>
+            <ThemeProvider theme={this.props.themeVariant}>
+              <ActionButton
+                iconProps={{ iconName: "Add" }}
+                onClick={this._addBox.bind(this)}
+              >
+                {strings.NewItemButton}
+              </ActionButton>
+            </ThemeProvider>
           </div>
         )}
         {this.props.items.length > 0 &&

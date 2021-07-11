@@ -9,6 +9,11 @@ import {
   PropertyPaneTextField,
   PropertyPaneToggle,
 } from "@microsoft/sp-property-pane";
+import {
+  IReadonlyTheme,
+  ThemeChangedEventArgs,
+  ThemeProvider,
+} from "@microsoft/sp-component-base";
 import { get, update } from "@microsoft/sp-lodash-subset";
 
 import Alert from "./components/Alert";
@@ -39,6 +44,37 @@ export interface IAlertItemProps {
 export default class AlertWebPart extends BaseClientSideWebPart<IAlertWebPartProps> {
   // Index of current item being edited.
   private _activeIndex: number = -1;
+
+  private _themeProvider: ThemeProvider;
+  private _themeVariant: IReadonlyTheme | undefined;
+
+  protected onInit(): Promise<void> {
+    // Consume the new ThemeProvider service
+    this._themeProvider = this.context.serviceScope.consume(
+      ThemeProvider.serviceKey
+    );
+
+    // If it exists, get the theme variant
+    this._themeVariant = this._themeProvider.tryGetTheme();
+
+    // Register a handler to be notified if the theme variant changes
+    this._themeProvider.themeChangedEvent.add(
+      this,
+      this._handleThemeChangedEvent
+    );
+
+    return super.onInit();
+  }
+
+  /**
+   * Update the current theme variant reference and re-render.
+   *
+   * @param args The new theme
+   */
+  private _handleThemeChangedEvent(args: ThemeChangedEventArgs): void {
+    this._themeVariant = args.theme;
+    this.render();
+  }
 
   /**
    * Deletes an alert item from the array of items in the web part property bag.
@@ -142,6 +178,7 @@ export default class AlertWebPart extends BaseClientSideWebPart<IAlertWebPartPro
         editItem: this._editItem.bind(this),
         deleteItem: this._deleteItem.bind(this),
         displayMode: this.displayMode,
+        themeVariant: this._themeVariant,
         domElement: this.domElement,
         domSelector: this.properties.domSelector,
       }
@@ -323,8 +360,8 @@ export default class AlertWebPart extends BaseClientSideWebPart<IAlertWebPartPro
                   {
                     label: strings.StartDateFieldLabel,
                     onPropertyChange: this._onScheduleDateChanged.bind(this),
-                    disabled: !this.properties.items[this._activeIndex]
-                      .scheduled,
+                    disabled:
+                      !this.properties.items[this._activeIndex].scheduled,
                     value: new Date(
                       this.properties.items[this._activeIndex].startDate
                     ),
@@ -335,8 +372,8 @@ export default class AlertWebPart extends BaseClientSideWebPart<IAlertWebPartPro
                   {
                     label: strings.EndDateFieldLabel,
                     onPropertyChange: this._onScheduleDateChanged.bind(this),
-                    disabled: !this.properties.items[this._activeIndex]
-                      .scheduled,
+                    disabled:
+                      !this.properties.items[this._activeIndex].scheduled,
                     value: new Date(
                       this.properties.items[this._activeIndex].endDate
                     ),
@@ -356,7 +393,8 @@ export default class AlertWebPart extends BaseClientSideWebPart<IAlertWebPartPro
       return "";
     }
 
-    const expression = /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?$/i;
+    const expression =
+      /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?$/i;
     const regex = new RegExp(expression);
     if (value !== "" && !value.match(regex)) {
       return strings.LinkUrlFieldValidationMsg01;
