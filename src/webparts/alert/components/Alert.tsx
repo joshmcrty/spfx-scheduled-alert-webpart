@@ -1,13 +1,14 @@
 import * as React from "react";
 import * as strings from "AlertWebPartStrings";
 
-import { IIconProps, Icon, ThemeProvider } from "@fluentui/react";
+import { IIconProps, Icon } from "office-ui-fabric-react/lib/Icon";
 
-import { ActionButton } from "@fluentui/react";
+import { ActionButton } from "office-ui-fabric-react/lib/Button";
+import { Customizer } from "office-ui-fabric-react/lib/Utilities";
 import { DisplayMode } from "@microsoft/sp-core-library";
 import { IAlertItemProps } from "../AlertWebPart";
 import { IAlertProps } from "./IAlertProps";
-import { Link } from "@fluentui/react";
+import { Link } from "office-ui-fabric-react/lib/Link";
 import styles from "./Alert.module.scss";
 
 // Polyfill closest method. See https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
@@ -79,14 +80,14 @@ export default class Alert extends React.Component<IAlertProps, {}> {
       <div className={styles.alert}>
         {this.props.displayMode === DisplayMode.Edit && (
           <div>
-            <ThemeProvider theme={this.props.themeVariant}>
+            <Customizer settings={{ theme: this.props.themeVariant }}>
               <ActionButton
                 iconProps={{ iconName: "Add" }}
                 onClick={this._addBox.bind(this)}
               >
                 {strings.NewItemButton}
               </ActionButton>
-            </ThemeProvider>
+            </Customizer>
           </div>
         )}
         {this.props.items.length > 0 &&
