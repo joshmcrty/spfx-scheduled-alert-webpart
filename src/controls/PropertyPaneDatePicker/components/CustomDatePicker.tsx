@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { DatePicker } from "@fluentui/react";
+import { DatePicker } from "office-ui-fabric-react/lib/DatePicker";
 import { ICustomDatePickerProps } from "./ICustomDatePickerProps";
 
 export default class CustomDatePicker extends React.Component<
