@@ -17,6 +17,8 @@ npm i -g gulp
 gulp
 ```
 
+See the [SharePoint Framework documentation](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-development-environment) for help getting started.
+
 This package produces the following:
 
 - lib/\* - intermediate-stage commonjs build artifacts
@@ -25,8 +27,12 @@ This package produces the following:
 
 ## Build options
 
-gulp clean - TODO
-gulp test - TODO
-gulp serve - TODO
-gulp bundle - TODO
-gulp package-solution - TODO
+`gulp clean` - cleans up all build-related files
+
+`gulp test` - runs tests
+
+`gulp serve` - runs local server to try out webpart
+
+`gulp bundle` - bundles assets to maek them ready for packaging into a solution file (use `gulp bundle --ship` for production builds)
+
+`gulp package-solution` - packages the solution to a .sppkg file ready for deployment to an app catalog site (use `gulp package-solution --ship` for production builds)
