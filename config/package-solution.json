@@ -3,7 +3,7 @@
   "solution": {
     "name": "Scheduled Alert Web Part",
     "id": "13518dde-6597-4ece-98d3-11e59e87a820",
-    "version": "1.3.3.0",
+    "version": "1.3.4.0",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false
